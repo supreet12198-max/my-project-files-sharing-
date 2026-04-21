@@ -1,29 +1,70 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>File Sharing System</title>
 
-<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 body{
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    font-family: Arial;
+    margin: 0;
 }
 
-/* Hero section */
+/* Navbar */
+.navbar{
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* Hero Section */
 .hero{
-    height: 80vh;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    color: white;
 }
 
-/* Card style */
-.card{
+.hero h1{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.hero p{
+    font-size: 18px;
+}
+
+/* Buttons */
+.btn-lg{
+    padding: 12px 25px;
+    border-radius: 10px;
+}
+
+/* Features */
+.features{
+    padding: 60px 0;
+}
+
+.feature-card{
     border-radius: 15px;
-    padding: 30px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.feature-card:hover{
+    transform: translateY(-5px);
+}
+
+/* Footer */
+footer{
+    background: #111;
+    color: white;
 }
 </style>
 
@@ -34,60 +75,80 @@ body{
 <!-- Navbar -->
 <nav class="navbar navbar-dark bg-dark">
 <div class="container">
+
 <span class="navbar-brand">📁 File Sharing System</span>
-<a href="login.php" class="btn btn-light btn-sm">Login</a>
+
+<?php if(isset($_SESSION['username'])) { ?>
+
+    <!-- Only Logout -->
+    <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+
+<?php } else { ?>
+
+    <!-- Login Button -->
+    <a href="login.php" class="btn btn-light btn-sm">Login</a>
+
+<?php } ?>
+
 </div>
 </nav>
 
 <!-- Hero Section -->
-<div class="container hero">
+<div class="hero">
 
-<div class="card shadow-lg col-md-6">
+<div>
 
-<h1 class="mb-3">Welcome Supreet 👋</h1>
+<h1>Welcome to File Sharing System 👋</h1>
 
-<p class="mb-4">
-This project allows users to upload, store, preview and download files easily.
+<p class="mt-3 mb-4">
+Upload, store, preview and download files easily & securely
 </p>
 
-<!-- Buttons -->
-<div class="d-grid gap-2">
+<?php if(isset($_SESSION['username'])) { ?>
 
-<a href="login.php" class="btn btn-primary">Login to Continue</a>
+    <!-- After Login -->
+    <a href="upload.php" class="btn btn-light btn-lg">
+        📂 Get Started
+    </a>
 
-<a href="display.php" class="btn btn-success">View Files</a>
+<?php } else { ?>
 
-</div>
+    <!-- Before Login -->
+    <a href="login.php" class="btn btn-light btn-lg">
+        🚀 Get Started
+    </a>
+
+<?php } ?>
 
 </div>
 
 </div>
 
 <!-- Features -->
-<div class="container text-center mt-5">
+<div class="container features text-center">
 
-<h3 class="mb-4 text-white">Features</h3>
+<h3 class="mb-5">✨ Features</h3>
 
 <div class="row">
 
 <div class="col-md-4">
-<div class="card p-3 shadow-sm">
-<h5>Upload</h5>
-<p>Upload files easily</p>
+<div class="card shadow-sm feature-card">
+<h5>📤 Upload</h5>
+<p>Upload files quickly and easily</p>
 </div>
 </div>
 
 <div class="col-md-4">
-<div class="card p-3 shadow-sm">
-<h5>Store</h5>
-<p>Save files on server & database</p>
+<div class="card shadow-sm feature-card">
+<h5>💾 Store</h5>
+<p>Securely store files in database</p>
 </div>
 </div>
 
 <div class="col-md-4">
-<div class="card p-3 shadow-sm">
-<h5>Preview & Download</h5>
-<p>View files without downloading</p>
+<div class="card shadow-sm feature-card">
+<h5>📂 View & Download</h5>
+<p>Access files anytime from anywhere</p>
 </div>
 </div>
 
@@ -96,7 +157,7 @@ This project allows users to upload, store, preview and download files easily.
 </div>
 
 <!-- Footer -->
-<footer class="text-center text-white mt-5 p-3">
+<footer class="text-center p-3">
 © 2026 Supreet Kaur | File Sharing System
 </footer>
 
