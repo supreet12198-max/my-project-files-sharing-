@@ -1,18 +1,17 @@
 <?php
-include "db.php";
+session_start();
 
 if(isset($_POST['login'])){
-    
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-    $result = mysqli_query($conn,$sql);
-
-    if(mysqli_num_rows($result) > 0){
-        header("Location: index.php");
+    // simple check (for project)
+    if($username == "admin" && $password == "1234"){
+        $_SESSION['username'] = $username;
+        header("Location: upload.php");
+        exit();
     } else {
-        echo "<script>alert('Invalid Login');</script>";
+        $error = "Invalid Login!";
     }
 }
 ?>
@@ -21,44 +20,26 @@ if(isset($_POST['login'])){
 <html>
 <head>
 <title>Login</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-body{
-    background: linear-gradient(to right, #4facfe, #00f2fe);
-}
-</style>
-
 </head>
 
-<body>
+<body class="bg-light">
 
-<div class="container mt-5">
+<div class="container mt-5 col-md-4">
 
-<div class="row justify-content-center">
+<h3 class="text-center">Login</h3>
 
-<div class="col-md-4">
+<form method="POST">
 
-<div class="card p-4 shadow">
+<input type="text" name="username" class="form-control mb-2" placeholder="Username" required>
 
-<h3 class="text-center mb-3">Login</h3>
+<input type="password" name="password" class="form-control mb-2" placeholder="Password" required>
 
-<form method="post">
+<button type="submit" name="login" class="btn btn-primary w-100">Login</button>
 
-<input type="text" name="username" placeholder="Username" class="form-control mb-3">
-
-<input type="password" name="password" placeholder="Password" class="form-control mb-3">
-
-<button name="login" class="btn btn-primary w-100">Login</button>
+<?php if(isset($error)) echo "<p class='text-danger text-center mt-2'>$error</p>"; ?>
 
 </form>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
