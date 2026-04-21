@@ -1,109 +1,77 @@
 <?php
 session_start();
-
-// check login
-if(!isset($_SESSION['username'])){
-    header("Location: login.php");
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>File Sharing System</title>
+<title>Home - File Sharing System</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body{
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-        }
+<style>
+body{
+    margin:0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .main-box{
-            height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.card-box{
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.2);
+}
 
-        .card-box{
-            width: 400px;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            background: white;
-        }
-    </style>
+.title{
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    <script>
-        function validateForm(){
+.subtitle{
+    color: gray;
+    margin-bottom: 25px;
+}
 
-            let fileInput = document.getElementById("file");
+.btn-custom{
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+}
 
-            // file check
-            if(fileInput.files.length === 0){
-                alert("Please select a file first");
-                return false;
-            }
-
-            let file = fileInput.files[0];
-
-            // size check (2MB)
-            if(file.size > 2 * 1024 * 1024){
-                alert("File is too large. Maximum size allowed is 2MB");
-                return false;
-            }
-
-            // optional: extension check
-            let allowed = ["jpg","png","pdf","txt"];
-            let ext = file.name.split('.').pop().toLowerCase();
-
-            if(!allowed.includes(ext)){
-                alert("Only jpg, png, pdf, txt files are allowed");
-                return false;
-            }
-
-            return true;
-        }
-    </script>
+.icon{
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+</style>
 
 </head>
 
 <body>
 
-<!-- navbar -->
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        <span class="navbar-brand">📁 File Sharing System</span>
-        <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
-    </div>
-</nav>
+<div class="card-box">
 
-<!-- main -->
-<div class="container main-box">
+<div class="icon">📁</div>
 
-    <div class="card-box shadow">
+<div class="title">File Sharing System</div>
+<div class="subtitle">Upload, View & Share Files Easily</div>
 
-        <h3 class="mb-3">Upload File</h3>
+<a href="upload.php" class="btn btn-primary btn-custom">
+    📤 Upload File
+</a>
 
-        <form action="upload.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
-
-            <input type="file" name="file" id="file" class="form-control mb-3" required>
-
-            <button type="submit" class="btn btn-primary w-100">
-                Upload File
-            </button>
-
-        </form>
-
-        <a href="display.php" class="btn btn-success w-100 mt-3">
-            View Uploaded Files
-        </a>
-
-    </div>
+<a href="view.php" class="btn btn-success btn-custom">
+    📂 View Files
+</a>
 
 </div>
 
